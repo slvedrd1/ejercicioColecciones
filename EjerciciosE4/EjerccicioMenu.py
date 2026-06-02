@@ -1,11 +1,12 @@
 def agregar_productos(productos):
 
     while True:
+        # .strip() elimina espacios vacíos que el usuario pueda escribir al inicio o final
         nombre = input("Ingrese el nombre del producto: ").strip()
 
         if nombre == "":
             print("El nombre no debe estar vacio")
-        elif nombre in productos:
+        elif nombre in productos: # 'in' revisa si la clave ya existe en el diccionario
             print("El producto ya esta registrado.")
         else:
             break
@@ -32,15 +33,19 @@ def agregar_productos(productos):
         except ValueError:
             print("Debe ingresar un valor numerico")
 
+    # Guardar en el diccionario: la clave es el 'nombre' y el valor es la lista [stock, precio]
     productos[nombre] = [stock, precio]
     print("Producto agregado con éxito.")
 
 def mostrar_productos(productos):
 
+    # Validamos si el diccionario no tiene elementos
     if len(productos) == 0:
         print("No hay productos registrados en el inventario.")
     else:
         print("=== LISTA DE PRODUCTOS ===")
+
+        # .items() nos permite extraer la Clave (nombre) y el Valor (datos) al mismo tiempo
         for nombre, datos in productos.items():
 
             print(f"Producto: {nombre} / Stock: {datos[0]} / Precio: {datos[1]}")
@@ -52,8 +57,9 @@ def buscar_productos(productos):
     else:
         nombreBuscar = input("Ingrese el producto que desea buscar: ")
 
+        # 'in' verifica si el nombre ingresado existe como una clave en el diccionario
         if nombreBuscar in productos:
-            datos = productos[nombreBuscar]
+            datos = productos[nombreBuscar]# Trae la lista [stock, precio] de ese producto
             print(f"Producto encontrado -> Stock: {datos[0]} / Precio: {datos[1]}")
         else:
             print("El producto no existe en el inventario.")
@@ -64,16 +70,19 @@ def producto_mas_caro(productos):
         print("No hay productos registrados en el inventario.")
     else:
 
+        # Variables para guardar el nombre y precio del producto más caro encontrado
         nombre_mayor = ""
-        precio_mayor = -1
+        precio_mayor = -1 # Empezamos en -1 para que cualquier precio real sea mayor
 
+        #recorremos el diccionario buscando el mas caro
         for nombre, datos in productos.items():
 
-            precio_actual = datos[1]
+            precio_actual = datos[1] #precio está en la posición 1 de la lista 'datos'
 
+            # Si el precio del producto actual supera al máximo que conocemos
             if precio_actual > precio_mayor:
-                precio_mayor = precio_actual
-                nombre_mayor = nombre
+                precio_mayor = precio_actual # Actualizamos el precio más alto
+                nombre_mayor = nombre        # Guardamos el nombre del nuevo producto más caro
 
         print(f"El producto más caro es: {nombre_mayor} con un precio de ${precio_mayor}")
 
