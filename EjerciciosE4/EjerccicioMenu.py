@@ -1,8 +1,36 @@
 def agregar_productos(productos):
 
-    nombre = input("Ingrese el nombre del producto: ")
-    stock = int(input("Ingrese el stock del producto: "))
-    precio = int(input("Ingrese el precio del producto: "))
+    while True:
+        nombre = input("Ingrese el nombre del producto: ").strip()
+
+        if nombre == "":
+            print("El nombre no debe estar vacio")
+        elif nombre in productos:
+            print("El producto ya esta registrado.")
+        else:
+            break
+    
+    while True:
+        try:
+            stock = int(input("Ingrese el stock del producto: "))
+
+            if stock >= 0:
+                break
+            else:
+                print("El stock debe ser mayor o igual a 0")
+        except ValueError:
+            print("Debe ingresar un valor numerico")
+    
+    while True:
+        try:
+            precio = int(input("Ingrese el precio del producto: "))
+
+            if precio > 0:
+                break
+            else:
+                print("El precio debe ser mayor a 0")
+        except ValueError:
+            print("Debe ingresar un valor numerico")
 
     productos[nombre] = [stock, precio]
     print("Producto agregado con éxito.")
